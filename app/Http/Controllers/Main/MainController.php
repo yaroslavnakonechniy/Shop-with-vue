@@ -12,7 +12,9 @@ class MainController extends Controller
 
     public function index(){
 
-        return view('layout.main');
+        $products = Product::all();
+
+        return view('main.products.index', compact('products'));
     }
 
     public function categoriesShow(){

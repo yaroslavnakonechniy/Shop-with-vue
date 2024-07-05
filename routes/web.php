@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-Route::group(['namespace' => 'Admin'], function () {
+Route::group(['namespace' => 'Admin', 'middleware' => 'admin'], function () {
 
     Route::group(['namespace' => 'Main'], function () {
         Route::get('/admin', 'MainController@index')->name('admin.main.index');
