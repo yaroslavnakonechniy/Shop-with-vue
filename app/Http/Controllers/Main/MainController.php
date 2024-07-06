@@ -12,14 +12,14 @@ class MainController extends Controller
 
     public function index(){
 
-        $products = Product::all();
+        $products = Product::paginate(5);
 
         return view('main.products.index', compact('products'));
     }
 
     public function categoriesShow(){
 
-        $categories = Category::all();
+        $categories = Category::paginate(5);
 
         return view('main.categories.index', compact('categories'));
     }

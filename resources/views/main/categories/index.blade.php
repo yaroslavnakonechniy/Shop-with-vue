@@ -1,7 +1,6 @@
 @extends('layout.main')
 
 @section('content')
-categories
 
     <div class="container">
         <div class="row">
@@ -20,6 +19,9 @@ categories
                     </div>
                 </div>
             @endforeach
+        </div>
+        <div>
+        {{ $categories->links() }}
         </div>
     </div>
 
