@@ -24,6 +24,10 @@
                 </div>
             @endforeach
         </div>
+        <!-- Відображення пагінації -->
+        <div >
+            {{ $products->links() }}
+        </div>
     </div>
 
 

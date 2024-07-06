@@ -12,7 +12,7 @@ class MainController extends Controller
 
     public function index(){
 
-        $products = Product::all();
+        $products = Product::paginate(5);
 
         return view('main.products.index', compact('products'));
     }
