@@ -27,14 +27,14 @@ class MainController extends Controller
     public function categoryProductsShow($id){
 
         $category = Category::findOrFail($id);
-        $products = $category->products;
+        $products = $category->products()->paginate(5);
 
         return view('main.products.index', compact('products'));
     }
 
     public function productsShow(){
 
-        $products = Product::all();
+        $products = Product::paginate(5);
 
         return view('main.products.index', compact('products'));
     }
