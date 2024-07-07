@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category\Category;
 use App\Http\Requests\Category\CategoryRequest;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -39,7 +40,15 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Category::create($request->all());
+        $input = $request->all();
+
+        if ($request->hasFile('img')) {
+            $image = $request->file('img');
+            $path = $image->store('images/categories', 'public');
+            $input['img'] = $path;
+        }
+
+        Category::create($input);
 
         return redirect()->route('categories.index')->with('success', 'Category created successfully.');
 
@@ -62,10 +71,8 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        $category = Category::find($id);
-
         return view('admin.category.form', compact('category'));
     }
 
@@ -78,7 +85,20 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, Category $category)
     {
-        $category->update($request->all());
+        $input = $request->all();
+
+        if ($request->hasFile('img')) {
+            // Видалити старе зображення, якщо воно існує
+            if ($category->img && Storage::disk('public')->exists($category->img)) {
+                Storage::disk('public')->delete($category->img);
+            }
+            // Завантажити нове зображення
+            $image = $request->file('img');
+            $path = $image->store('images/categories', 'public');
+            $input['img'] = $path;
+        }
+
+        $category->update($input);
 
         return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
     
@@ -92,6 +112,10 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        if ($category->img) {
+            Storage::disk('public')->delete($category->img);
+        }
+
         $category->delete();
 
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
