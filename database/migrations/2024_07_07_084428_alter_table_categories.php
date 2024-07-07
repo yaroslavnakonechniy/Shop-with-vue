@@ -14,7 +14,7 @@ class AlterTableCategories extends Migration
     public function up()
     {
         Schema::table('categories', function (Blueprint $table) {
-            $table->string('img')->after('name');
+            $table->string('img')->nullable()->after('name');
         });
     }
 
