@@ -23,6 +23,18 @@
     @enderror
     <input type="text" class="form-control" id="name" name="name" value="@isset($category){{ $category->name }}@endisset"  placeholder="Enter name">
   </div>
+  <div class="form-group">
+    <label for="img">Image URL:</label>
+    @isset($category->img)
+    <div>
+      <img src="{{ Storage::url($category->img) }}" height="240px">
+    </div>
+    @endisset
+    <input type="file" name="img" id="img" class="form-control">
+    @error('img')
+      <div class="alert alert-danger">{{$message}}</div>
+    @enderror
+    </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 

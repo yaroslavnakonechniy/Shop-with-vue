@@ -3,7 +3,14 @@
 @section('title', 'Продукт ' . $product->name)
 
 @section('content')
-<a class="btn btn-warning" type="button" href="{{ route('products.edit', $product) }}">Редактировать</a>
+<div class="btn-group" role="group">
+    <form action="{{ route('products.destroy', $product) }}" method="POST">
+        <a class="btn btn-warning" type="button" href="{{ route('products.edit', $product) }}">Редактировать</a>
+        @csrf
+        @method('DELETE')
+        <input class="btn btn-danger" type="submit" value="Удалить">
+    </form>
+</div>
                                 
     <div class="col-md-12">
         <h1>{{$product->name}}</h1>

@@ -15,10 +15,14 @@
                 <th>
                     Название
                 </th>
+                <th>
+                    Картинка
+                </th>
             </tr>
                 <tr>
                     <td>{{ $category->id }}</td>
                     <td>{{ $category->name }}</td>
+                    <td><img src="{{ Storage::url($category->img) }}" height="240px"></td>
                     <td>
                         <div class="btn-group" role="group">
                             <form action="{{ route('categories.destroy', $category) }}" method="POST">
