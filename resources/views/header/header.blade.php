@@ -47,8 +47,8 @@
                 </li>
             @endguest
             <li class="nav-item">
-                <a class="nav-link" href="/cart">
-                    <img src="path/to/cart/icon.png" alt="Cart" height="24px">
+                <a class="nav-link" href="">
+                    <i class="bi bi-cart"></i> Cart
                 </a>
             </li>
         </ul>
