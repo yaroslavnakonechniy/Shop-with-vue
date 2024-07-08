@@ -42,12 +42,12 @@
                             </div>
                         </td>
                         <td>{{ $product->price }} руб.</td>
-                        <td> руб.</td>
+                        <td>{{ $product->getPriceForCount($product->price) }} руб.</td>
                     </tr>
                 @endforeach
                 <tr>
                     <td colspan="3">Общая стоимость:</td>
-                    <td> руб.</td>
+                    <td>{{$order->getFullPrice()}} руб.</td>
                 </tr>
                 </tbody>
             </table>
