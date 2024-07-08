@@ -13,6 +13,6 @@ class Order extends Model
     protected $fillable = ['status', 'name', 'phone'];
 
     public function products(){
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)->withPivot('count');
     }
 }

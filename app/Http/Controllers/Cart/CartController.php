@@ -30,25 +30,40 @@ class CartController extends Controller
             $order = Order::find($orderId);
         }
 
-        $order->products()->attach($productId);
-
+        if($order->products->contains($productId)){
+            $PivotRow = $order->products()->where('product_id', $productId)->first()->pivot;
+            $PivotRow->count++;
+            $PivotRow->update();
+        }else{
+            $order->products()->attach($productId);
+        }
         
+        $product = Product::find($productId);
 
-        session()->flash('success','Товар "' . $productId . '" додано до корзини');
+        session()->flash('success','Товар "' . $product . '" додано до корзини');
             
-        return view('cart.index', compact('order'))->with('success', 'Product added to cart successfully!');
+        return redirect()->route('cart.index');
     }
     
 
-    public function removeProduct(Request $request)
+    public function removeProduct($productId)
     {
-        $cart = session()->get('cart', []);
+        $orderId = session('orderId');
+        if (is_null($orderId)) {
+            return redirect()->route('cart.index');
+        } 
+        $order = Order::find($orderId);
 
-        if (isset($cart[$request->product_id])) {
-            unset($cart[$request->product_id]);
-            session()->put('cart', $cart);
+        if($order->products->contains($productId)){
+            $PivotRow = $order->products()->where('product_id', $productId)->first()->pivot;
+            if($PivotRow->count < 2){
+                $order->products()->detach($productId);
+            }else{
+                $PivotRow->count--;
+                $PivotRow->update();
+            }
         }
-
-        return redirect()->route('cart.index')->with('success', 'Product removed from cart successfully!');
+           
+        return redirect()->route('cart.index');
     }
 }
