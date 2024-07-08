@@ -17,7 +17,10 @@
                         <span class="text-muted">${{ $product->price }}</span>
                     </div>
                     <div class="card-body">
-                        <a href="" class="btn btn-success">Add to basket</a>
+                        <form action="{{route('cart.add', $product)}}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-success">Add to basket</button>
+                        </form>
                     </div>
                 </div>
             </div>

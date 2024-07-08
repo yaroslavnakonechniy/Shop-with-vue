@@ -45,6 +45,16 @@ Route::group(['namespace' => 'Main'], function () {
   
 });
 
-Auth::routes();
+
+Route::group(['namespace' => 'Cart', 'prefix' => 'cart'], function () {
+
+    Route::get('/index', 'CartController@index')->name('cart.index');
+    Route::post('/add/{id}', 'CartController@addProduct')->name('cart.add');
+    Route::post('/remove', 'CartController@removeProduct')->name('cart.remove');
+    Route::post('/order', 'CartController@order')->name('cart.order');
+});
+
+
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
