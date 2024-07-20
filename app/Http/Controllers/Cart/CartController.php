@@ -14,9 +14,10 @@ class CartController extends Controller
         $orderId = session('orderId');
         if (!is_null($orderId)) {
             $order = Order::findOrFail($orderId);
+            return view('cart.index', compact('order'));
         }
         
-        return view('cart.index', compact('order'));
+        return view('cart.index');
 
     }
 
@@ -28,6 +29,10 @@ class CartController extends Controller
             session(['orderId' => $order->id]);
         } else {
             $order = Order::find($orderId);
+        }
+
+        if(is_null($order->products)){
+            return redirect()->route('layout.main');
         }
 
         if($order->products->contains($productId)){
