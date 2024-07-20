@@ -18,7 +18,10 @@
                             </div>
                         <div class="card-body">
                             <a href="{{route('main.product.show', $product->id)}}" class="btn btn-primary">View Product</a>
-                            <a href="" class="btn btn-success">Add to basket</a>
+                            <form action="{{route('cart.add', $product)}}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-success">Add to basket</button>
+                            </form>
                         </div>
                     </div>
                 </div>
