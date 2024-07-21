@@ -45,7 +45,7 @@ class CartController extends Controller
         
         $product = Product::find($productId);
 
-        session()->flash('success','Товар "' . $product . '" додано до корзини');
+        session()->flash('success','Товар "' . $product->name . '" додано до корзини');
             
         return redirect()->route('cart.index');
     }
@@ -68,7 +68,40 @@ class CartController extends Controller
                 $PivotRow->update();
             }
         }
+
+        $product = Product::find($productId);
+
+        session()->flash('warning','Товар "' . $product->name . '" видалено з корзини');
            
         return redirect()->route('cart.index');
+    }
+
+    public function confirmForm(){
+
+        $orderId = session('orderId');
+        if(is_null($orderId)){
+            return redirect()->route('layout.main');
+        }
+
+        $order = Order::find($orderId);
+        return view('confirm.confirmForm', compact('order'));
+    }
+
+    public function confirmOrder(Request $request){
+        
+        $orderId = session('orderId');
+        if(is_null($orderId)){
+            return redirect()->route('layout.main');
+        }
+        $order = Order::find($orderId);
+        $result = $order->saveOrder($request->name, $request->phone);
+        
+        if($result){
+            session()->flash('success', 'Замовлення оформлено');
+        }else{
+            session()->flash('warning', 'Cталася помилка');
+        }
+        
+        return redirect()->route('layout.main');
     }
 }

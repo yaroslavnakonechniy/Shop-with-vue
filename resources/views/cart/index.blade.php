@@ -56,7 +56,7 @@
             </table>
             <br>
             <div class="btn-group pull-right" role="group">
-                <a type="button" class="btn btn-success" href="{{route('cart.order')}}">Оформить заказ</a>
+                <a type="button" class="btn btn-success" href="{{route('confirm.form')}}">Оформить заказ</a>
             </div>
         </div>
     </div>
