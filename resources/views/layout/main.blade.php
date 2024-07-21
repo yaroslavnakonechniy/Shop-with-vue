@@ -28,11 +28,8 @@
 
     <div class="container">
 
-        @if(session('error'))
-            <div class="alert alert-danger">
-                {{ session('error') }}
-            </div>
-        @endif
+        @include('layout.flash.flash')
+
 
         @yield('content')
 
