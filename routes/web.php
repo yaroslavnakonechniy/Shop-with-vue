@@ -51,7 +51,8 @@ Route::group(['namespace' => 'Cart', 'prefix' => 'cart'], function () {
     Route::get('/index', 'CartController@index')->name('cart.index');
     Route::post('/add/{id}', 'CartController@addProduct')->name('cart.add');
     Route::post('/remove/{id}', 'CartController@removeProduct')->name('cart.remove');
-    Route::post('/order', 'CartController@order')->name('cart.order');
+    Route::get('/confirm/form', 'CartController@confirmForm')->name('confirm.form');
+    Route::post('/confirm/order', 'CartController@confirmOrder')->name('cart.confirm');
 });
 
 
