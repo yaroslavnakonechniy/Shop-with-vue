@@ -29,6 +29,12 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'admin'], function () {
         Route::resource('products', 'ProductController');
     });
 
+    Route::group(['namespace' => 'Orders'], function () {
+        Route::get('orders', 'OrderController@index')->name('orders.index');
+        Route::post('order/{id}', 'OrderController@show')->name('order.show');
+        Route::get('order/{id}', 'OrderController@destroy')->name('order.destroy');
+    });
+
     
     
 });
