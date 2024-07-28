@@ -1,34 +1,34 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand {{ request()->is('/') ? 'active' : '' }}" href="{{route('layout.main')}}">Internet shop</a>
+    <a class="navbar-brand" href="{{route('layout.main')}}">Internet shop</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item {{ request()->is('product') ? 'active' : '' }}">
+            <li @routeactive('main.product*') class="nav-item">
                 <a class="nav-link" href="{{route('main.products.show')}}">Products</a>
             </li>
-            <li class="nav-item {{ request()->is('category') ? 'active' : '' }}">
+            <li @routeactive('main.categor*') class="nav-item">
                 <a class="nav-link" href="{{route('main.categories.show')}}">Categories</a>
             </li>
-            <li class="nav-item {{ request()->is('about') ? 'active' : '' }}">
+            <li @routeactive('aboute*') class="nav-item">
                 <a class="nav-link" href="{{route('layout.main')}}">About</a>
             </li>
-            <li class="nav-item {{ request()->is('contact') ? 'active' : '' }}">
+            <li @routeactive('contact*') class="nav-item">
                 <a class="nav-link" href="/contact">Contact</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto">
             @guest
-                <li class="nav-item {{ request()->is('login') ? 'active' : '' }}">
+                <li @routeactive('login') class="nav-item">
                     <a class="nav-link" href="{{ route('login') }}">Login</a>
                 </li>
-                <li class="nav-item {{ request()->is('register') ? 'active' : '' }}">
+                <li @routeactive('register') class="nav-item">
                     <a class="nav-link" href="{{ route('register') }}">Register</a>
                 </li>
             @else
                 @can('view', auth()->user())
-                    <li class="nav-item dropdown"><a class="nav-link" href="{{ route('admin.main.index') }}">Панель администратора</a></li>
+                    <li @routeactive('admin.main.inde') class="nav-item dropdown"><a class="nav-link" href="{{ route('admin.main.index') }}">Панель администратора</a></li>
                 @endcan
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -46,7 +46,7 @@
                     </div>
                 </li>
             @endguest
-            <li class="nav-item">
+            <li @routeactive('cart*') class="nav-item">
                 <a class="nav-link" href="{{ route('cart.index') }}">
                     <i class="bi bi-cart"></i> Cart
                 </a>
