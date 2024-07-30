@@ -25,17 +25,23 @@ class Order extends Model
         return $sum;
     }
 
-    public function saveOrder($name, $phone){
+    public function saveOrder($name, $phone, $user){
 
         if( $this->status == 0){
             $this->status = 1;
             $this->name = $name;
             $this->phone = $phone;
+            $this->user_id = $user;
             $this->save();
             session()->forget('orderId');
             return true;
         }else{
             return false;
         }
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

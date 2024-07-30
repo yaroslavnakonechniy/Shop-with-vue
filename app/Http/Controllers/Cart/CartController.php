@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product\Product;
 use App\Models\Order\Order;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -82,7 +83,13 @@ class CartController extends Controller
         if(is_null($orderId)){
             return redirect()->route('layout.main');
         }
-
+        if (Auth::check()) {
+            $user = Auth::user();
+            $order = Order::find($orderId);
+            
+            return view('confirm.confirmForm', compact('order', 'user'));
+        }
+        
         $order = Order::find($orderId);
         return view('confirm.confirmForm', compact('order'));
     }
@@ -94,7 +101,8 @@ class CartController extends Controller
             return redirect()->route('layout.main');
         }
         $order = Order::find($orderId);
-        $result = $order->saveOrder($request->name, $request->phone);
+        $user = Auth::id();
+        $result = $order->saveOrder($request->name, $request->phone, $user );
         
         if($result){
             session()->flash('success', 'Замовлення оформлено');
