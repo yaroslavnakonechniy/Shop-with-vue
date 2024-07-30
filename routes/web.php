@@ -52,6 +52,13 @@ Route::group(['namespace' => 'Main'], function () {
 });
 
 
+Route::group(['namespace' => 'UserOrders'], function () {
+
+    Route::get('/orders', 'UserOrdersController@index')->name('orders.user.index');
+    Route::get('/order/{id}', 'UserOrdersController@show')->name('order.user.show');
+    
+});
+
 Route::group(['namespace' => 'Cart', 'prefix' => 'cart'], function () {
 
     Route::group(['middleware' => 'basket-is-not-empty'], function () {
