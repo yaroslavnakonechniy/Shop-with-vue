@@ -83,7 +83,13 @@ class CartController extends Controller
         if(is_null($orderId)){
             return redirect()->route('layout.main');
         }
-
+        if (Auth::check()) {
+            $user = Auth::user();
+            $order = Order::find($orderId);
+            
+            return view('confirm.confirmForm', compact('order', 'user'));
+        }
+        
         $order = Order::find($orderId);
         return view('confirm.confirmForm', compact('order'));
     }

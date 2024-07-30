@@ -17,7 +17,11 @@
                             <div class="form-group">
                                 <label for="name" class="control-label col-lg-offset-3 col-lg-2">Имя: </label>
                                 <div class="col-lg-4">
-                                    <input type="text" name="name" id="name" value="" class="form-control">
+                                    @isset($user)
+                                        <input type="text" name="name" id="name" value="{{ $user->name }}" class="form-control">
+                                    @else
+                                        <input type="text" name="name" id="name" value="" class="form-control">
+                                    @endisset
                                 </div>
                             </div>
                             <br>
