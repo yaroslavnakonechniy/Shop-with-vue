@@ -17,12 +17,12 @@ class AdminPanelMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        
-        if(auth()->user()->is_admin !== 1)
-        {
-            return redirect()->back()->with('error', 'У вас немає прав адміністратора.');
+
+        if (Auth::check() && Auth::user()->is_admin === 1) {
+            return $next($request);
         }
 
-        return $next($request);
+        return redirect()->back()->with('error', 'У вас немає прав адміністратора.');
+        
     }
 }

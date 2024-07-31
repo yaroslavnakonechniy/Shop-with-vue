@@ -31,7 +31,7 @@
                     <td>{{ $order->getFullPrice() }}</td>
                     <td>
                         <div class="btn-group" role="group">
-                            <form action="{{ route('order.show', $order) }}" method="POST">
+                            <form action="{{ route('admin.order.show', $order) }}" method="POST">
                                 @csrf
                                 <input class="btn btn-success" type="submit" value="Oткрить">
                             </form>

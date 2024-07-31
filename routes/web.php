@@ -22,17 +22,17 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'admin'], function () {
     });
 
     Route::group(['namespace' => 'Category'], function () {
-        Route::resource('categories', 'CategoryController');
+        Route::resource('/categories', 'CategoryController');
     });
 
     Route::group(['namespace' => 'Product'], function () {
-        Route::resource('products', 'ProductController');
+        Route::resource('/products', 'ProductController');
     });
 
     Route::group(['namespace' => 'Orders'], function () {
-        Route::get('orders', 'OrderController@index')->name('orders.index');
-        Route::post('order/{id}', 'OrderController@show')->name('order.show');
-        Route::get('order/{id}', 'OrderController@destroy')->name('order.destroy');
+        Route::get('/orders', 'OrderController@index')->name('admin.orders.index');
+        Route::post('/order/{id}', 'OrderController@show')->name('admin.order.show');
+        Route::get('/order/{id}', 'OrderController@destroy')->name('admin.order.destroy');
     });
 
     
@@ -54,13 +54,13 @@ Route::group(['namespace' => 'Main'], function () {
 
 Route::group(['namespace' => 'UserOrders', 'middleware' => 'order-is-not-empty'], function () {
 
-    Route::get('/orders', 'UserOrdersController@index')->name('orders.user.index');
-    Route::get('/order/{id}', 'UserOrdersController@show')->name('order.user.show');
+    Route::get('/user/orders', 'UserOrdersController@index')->name('user.orders.index');
+    Route::get('/user/order/{id}', 'UserOrdersController@show')->name('user.order.show');
     
 });
 
 Route::group(['namespace' => 'Cart', 'prefix' => 'cart'], function () {
-    
+
     Route::post('/add/{id}', 'CartController@addProduct')->name('cart.add');
     Route::post('/remove/{id}', 'CartController@removeProduct')->name('cart.remove');
 
@@ -74,5 +74,9 @@ Route::group(['namespace' => 'Cart', 'prefix' => 'cart'], function () {
 
 
 
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
