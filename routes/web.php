@@ -52,7 +52,7 @@ Route::group(['namespace' => 'Main'], function () {
 });
 
 
-Route::group(['namespace' => 'UserOrders'], function () {
+Route::group(['namespace' => 'UserOrders', 'middleware' => 'order-is-not-empty'], function () {
 
     Route::get('/orders', 'UserOrdersController@index')->name('orders.user.index');
     Route::get('/order/{id}', 'UserOrdersController@show')->name('order.user.show');

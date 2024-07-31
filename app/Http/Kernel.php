@@ -5,6 +5,7 @@ namespace App\Http;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 use App\Http\Middleware\AdminPanelMiddleware;
 use App\Http\Middleware\BasketIsNotEmpty;
+use App\Http\Middleware\OrderIsNotEmptyMiddleware;
 
 class Kernel extends HttpKernel
 {
@@ -67,5 +68,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => AdminPanelMiddleware::class,
         'basket-is-not-empty' => BasketIsNotEmpty::class,
+        'order-is-not-empty' => OrderIsNotEmptyMiddleware::class,
     ];
 }
