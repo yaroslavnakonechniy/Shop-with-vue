@@ -60,15 +60,15 @@ Route::group(['namespace' => 'UserOrders', 'middleware' => 'order-is-not-empty']
 });
 
 Route::group(['namespace' => 'Cart', 'prefix' => 'cart'], function () {
+    
+    Route::post('/add/{id}', 'CartController@addProduct')->name('cart.add');
+    Route::post('/remove/{id}', 'CartController@removeProduct')->name('cart.remove');
 
     Route::group(['middleware' => 'basket-is-not-empty'], function () {
         Route::get('/index', 'CartController@index')->name('cart.index');
         Route::get('/confirm/form', 'CartController@confirmForm')->name('confirm.form');
         Route::post('/confirm/order', 'CartController@confirmOrder')->name('cart.confirm');
     });
-    
-    Route::post('/add/{id}', 'CartController@addProduct')->name('cart.add');
-    Route::post('/remove/{id}', 'CartController@removeProduct')->name('cart.remove');
     
 });
 
