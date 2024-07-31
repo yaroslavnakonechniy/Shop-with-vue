@@ -220,7 +220,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{route('orders.index')}}" class="nav-link">
+            <a href="{{route('admin.orders.index')}}" class="nav-link">
               <i class="nav-icon far fa-image"></i>
               <p>
                 Orders

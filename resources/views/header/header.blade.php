@@ -27,16 +27,18 @@
                     <a class="nav-link" href="{{ route('register') }}">Register</a>
                 </li>
             @else
-                @can('view', auth()->user())
-                    <li @routeactive('admin.main.index') class="nav-item dropdown"><a class="nav-link" href="{{ route('admin.main.index') }}">Панель администратора</a></li>
-                @endcan
-                @auth
-                    @can('registered', auth()->user())
-                        <li @routeactive('orders.user.index') class="nav-item">
-                            <a class="nav-link" href="{{ route('orders.user.index') }}">Orders</a>
-                        </li>
-                    @endcan
-                @endauth
+            
+            
+            @if(Auth::user()->is_admin == '1')
+                <li @routeactive('admin.main.index') class="nav-item dropdown">
+                    <a class="nav-link" href="{{ route('admin.main.index') }}">Панель администратора</a>
+                </li>
+            @else
+                <li @routeactive('user.orders.index') class="nav-item">
+                    <a class="nav-link" href="{{ route('user.orders.index') }}">Orders</a>
+                </li>
+            @endif
+                
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->name }} <span class="caret"></span>
