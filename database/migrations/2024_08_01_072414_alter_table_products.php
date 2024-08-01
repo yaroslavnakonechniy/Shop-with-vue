@@ -15,8 +15,8 @@ class AlterTableProducts extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->unsignedBigInteger('new')->nullable()->after('category_id');
-            $table->unsignedBigInteger('fit')->nullable()->after('new');
-            $table->unsignedBigInteger('recommend')->nullable()->after('fit');
+            $table->unsignedBigInteger('hit')->nullable()->after('new');
+            $table->unsignedBigInteger('recommend')->nullable()->after('hit');
         });
     }
 
@@ -29,7 +29,7 @@ class AlterTableProducts extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->dropColumn('new');
-            $table->dropColumn('fit');
+            $table->dropColumn('hit');
             $table->dropColumn('recommend');
         });
     }
