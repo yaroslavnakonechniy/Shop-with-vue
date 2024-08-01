@@ -7,6 +7,19 @@
             @foreach($products as $product)
                 <div class="col-md-4 mb-4">
                     <div class="card">
+                        <div class="labels">
+                            @if($product->isNew())
+                                <span class="badge badge-success">Новинка</span>
+                            @endif
+    
+                            @if($product->isRecommend())
+                                <span class="badge badge-warning">Рекомендуем</span>
+                            @endif
+    
+                            @if($product->isHit())
+                                <span class="badge badge-danger">Хит продаж!</span>
+                            @endif
+                        </div>
                         @if($product->img)
                             <img src="{{ Storage::url($product->img) }}" class="card-img-top" alt="{{ $product->name }}">
                         @else
