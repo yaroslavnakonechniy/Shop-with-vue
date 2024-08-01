@@ -102,13 +102,11 @@ class ProductController extends Controller
             $input['img'] = $path;
         }
 
-        /*
         foreach(['new', 'hit', 'recommend'] as $fieldName) {
-            if( !isset($params[$fieldName]) ) {
-                $params[$fieldName] = 0;
+            if( !isset($input[$fieldName]) ) {
+                $input[$fieldName] = 0;
             }
         }
-        */
 
         $product->update($input);
 
