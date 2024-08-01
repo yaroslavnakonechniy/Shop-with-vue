@@ -75,7 +75,8 @@
                     <label for="img">Image URL:</label>
                     @isset($product->img)
                       <div>
-                        <img src="{{ Storage::url($product->img) }}" height="240px">
+                        <img src="{{ asset('storage/' . $product->img) }}" alt="Product Photo" style="width: 150px; height: auto;">
+                        <input type="hidden" name="img" value="{{ $product->img }}">
                       </div>
                     @endisset
                     <input type="file" name="img" id="img" class="form-control">
