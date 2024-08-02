@@ -12,6 +12,7 @@ class MainController extends Controller
 
     public function index(Request $request){
 
+        //dd($request->all());
         $categories = Category::all();
         $productsQuery = Product::query();
         
@@ -24,7 +25,7 @@ class MainController extends Controller
         }
 
         if ($request->has('category_ids')) {
-            $productsQuery->where('category_id', $request->input('category_ids'));
+            $productsQuery->whereIn('category_id', $request->input('category_ids'));
         }
 
         foreach(['new', 'hit', 'recommend'] as $field){
