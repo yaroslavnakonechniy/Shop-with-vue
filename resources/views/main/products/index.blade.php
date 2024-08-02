@@ -2,6 +2,7 @@
 
 @section('content')
 
+@include('main.products.filter.filter')
     <div class="container">
         <div class="row">
             @foreach($products as $product)

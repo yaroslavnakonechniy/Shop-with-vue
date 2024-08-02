@@ -10,9 +10,27 @@ use App\Models\Product\Product;
 class MainController extends Controller
 {
 
-    public function index(){
+    public function index(Request $request){
 
-        $products = Product::paginate(5);
+        //dd($request->all());
+        $productsQwery = Product::query();
+        
+        if($request->filled('price_from')){
+            $productsQwery->where('price', '>=', $request->price_from);
+        }
+
+        if($request->filled('price_to')){
+            $productsQwery->where('price', '<=', $request->price_to);
+        }
+
+        foreach(['new', 'hit', 'recommend'] as $field){
+            if($request->has($field)){
+                $productsQwery->where($field, 1);
+            }
+        }
+
+        
+        $products = $productsQwery->paginate(5)->withPath("?" . $request->getQueryString());
 
         return view('main.products.index', compact('products'));
     }
