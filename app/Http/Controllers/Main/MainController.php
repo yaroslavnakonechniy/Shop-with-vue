@@ -12,27 +12,30 @@ class MainController extends Controller
 
     public function index(Request $request){
 
-        //dd($request->all());
-        $productsQwery = Product::query();
+        $categories = Category::all();
+        $productsQuery = Product::query();
         
         if($request->filled('price_from')){
-            $productsQwery->where('price', '>=', $request->price_from);
+            $productsQuery->where('price', '>=', $request->price_from);
         }
 
         if($request->filled('price_to')){
-            $productsQwery->where('price', '<=', $request->price_to);
+            $productsQuery->where('price', '<=', $request->price_to);
+        }
+
+        if ($request->has('category_ids')) {
+            $productsQuery->where('category_id', $request->input('category_ids'));
         }
 
         foreach(['new', 'hit', 'recommend'] as $field){
             if($request->has($field)){
-                $productsQwery->where($field, 1);
+                $productsQuery->where($field, 1);
             }
         }
 
-        
-        $products = $productsQwery->paginate(5)->withPath("?" . $request->getQueryString());
+        $products = $productsQuery->paginate(5)->withPath("?" . $request->getQueryString());
 
-        return view('main.products.index', compact('products'));
+        return view('main.products.index', compact('products', 'categories'));
     }
 
     public function categoriesShow(){

@@ -2,7 +2,7 @@
 
 @section('content')
 
-@include('main.products.filter.filter')
+@include('main.products.filter.filter', ['categories' => $categories])
     <div class="container">
         <div class="row">
             @foreach($products as $product)
